@@ -27,5 +27,11 @@ jobs:
       - name: Build Jar
         run: mvn clean package -DskipTests
         working-directory: ./demo
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: spring-jar
+          path: ./demo/target/*.jar
       
     
