@@ -64,5 +64,5 @@ jobs:
       - name: Restart service on server
         run: |
           ssh -i id_rsa -o StrictHostKeyChecking=no \
-          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo systemctl restart myapp"
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo systemctl restart myapp.service"
 
