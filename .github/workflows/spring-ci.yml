@@ -51,14 +51,18 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install -y openssh-client
 
+      - name: Add SSH key
+        run: |
+          echo "${{ secrets.SSH_KEY }}" > id_rsa
+          chmod 600 id_rsa
+
       - name: Copy JAR to server via SCP
         run: |
-          scp -o StrictHostKeyChecking=no ./build-artifact/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/myapp.jar
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          scp -i id_rsa -o StrictHostKeyChecking=no ./build-artifact/*.jar \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/myapp.jar
 
-      - name: Restart service on server (optional)
+      - name: Restart service on server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} "sudo systemctl restart myapp"
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          ssh -i id_rsa -o StrictHostKeyChecking=no \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo systemctl restart myapp"
+
