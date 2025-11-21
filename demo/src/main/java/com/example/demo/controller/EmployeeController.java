@@ -22,7 +22,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/abhinay")
-    public String test(){
+    public String abhinay(){
         return "abhinay";
     }
 
