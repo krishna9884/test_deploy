@@ -20,7 +20,12 @@ public class EmployeeController {
     public String test(){
         return "test";
     }
-    
+
+    @GetMapping("/abhinay")
+    public String test(){
+        return "abhinay";
+    }
+
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
         return Arrays.asList(
