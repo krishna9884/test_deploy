@@ -15,6 +15,11 @@ public class EmployeeController {
     public String hello() {
         return "Hello, World!";
     }
+
+    @GetMapping("/test")
+    public String test(){
+        return "test";
+    }
     
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
